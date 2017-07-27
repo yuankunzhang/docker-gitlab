@@ -6,6 +6,7 @@ GITLAB_SHELL_URL=https://gitlab.com/gitlab-org/gitlab-shell/repository/archive.t
 GITLAB_WORKHORSE_URL=https://gitlab.com/gitlab-org/gitlab-workhorse.git
 GITLAB_PAGES_URL=https://gitlab.com/gitlab-org/gitlab-pages/repository/archive.tar.gz
 GITLAB_GITALY_URL=https://gitlab.com/gitlab-org/gitaly/repository/archive.tar.gz
+GITLAB_MONITOR_URL=https://gitlab.com/gitlab-org/gitlab-monitor/repository/archive.tar.gz
 
 GEM_CACHE_DIR="${GITLAB_BUILD_DIR}/cache"
 
@@ -98,6 +99,17 @@ exec_as_git rm -rf ${GITLAB_HOME}/repositories
 echo "Cloning gitlab-workhorse v.${GITLAB_WORKHORSE_VERSION}..."
 exec_as_git git clone -q -b v${GITLAB_WORKHORSE_VERSION} --depth 1 ${GITLAB_WORKHORSE_URL} ${GITLAB_WORKHORSE_INSTALL_DIR}
 chown -R ${GITLAB_USER}: ${GITLAB_WORKHORSE_INSTALL_DIR}
+
+# download gitlab-workhose
+echo "Downloading gitlab-monitor v.${GITLAB_MONITOR_VERSION}..."
+mkdir -p ${GITLAB_MONITOR_INSTALL_DIR}
+wget -cq ${GITLAB_MONITOR_URL}?ref=v${GITLAB_MONITOR_VERSION} -O ${GITLAB_BUILD_DIR}/gitlab-monitor-${GITLAB_MONITOR_VERSION}.tar.gz
+tar xf ${GITLAB_BUILD_DIR}/gitlab-monitor-${GITLAB_MONITOR_VERSION}.tar.gz --strip 1 -C ${GITLAB_MONITOR_INSTALL_DIR}
+rm -rf ${GITLAB_BUILD_DIR}/gitlab-monitor-${GITLAB_MONITOR_VERSION}.tar.gz
+chown -R ${GITLAB_USER}: ${GITLAB_MONITOR_INSTALL_DIR}
+
+cd ${GITLAB_MONITOR_INSTALL_DIR}
+exec_as_git bundle install -j$(nproc) --deployment
 
 #install gitlab-workhorse
 cd ${GITLAB_WORKHORSE_INSTALL_DIR}
@@ -342,6 +354,20 @@ autostart={{GITALY_ENABLED}}
 autorestart=true
 stdout_logfile=${GITLAB_LOG_DIR}/supervisor/%(program_name)s.log
 stderr_logfile=${GITLAB_LOG_DIR}/supervisor/%(program_name)s.log
+EOF
+
+# configure supervisord to start gitlab-monitor
+cat > /etc/supervisor/conf.d/gitlab-monitor.conf <<EOF
+[program:gitlab-monitor]
+priority=30
+directory=${GITLAB_MONITOR_INSTALL_DIR}
+environment=HOME=${GITLAB_HOME}
+command=bundle exec ${GITLAB_MONITOR_INSTALL_DIR}/bin/gitlab-mon web -c ${GITLAB_MONITOR_INSTALL_DIR}/config/gitlab-monitor.yml
+user=git
+autostart=true
+autorestart=true
+stdout_logfile=${GITLAB_INSTALL_DIR}/log/%(program_name)s.log
+stderr_logfile=${GITLAB_INSTALL_DIR}/log/%(program_name)s.log
 EOF
 
 # configure supervisord to start mail_room
