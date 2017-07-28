@@ -1510,6 +1510,8 @@ stderr_logfile=${GITLAB_INSTALL_DIR}/log/%(program_name)s.log
 EOF
 fi
 
+}
+
 configure_gitlab_monitor() {
   echo "Configuring gitlab-monitor..."
   update_template ${GITLAB_MONITOR_CONFIG} \
