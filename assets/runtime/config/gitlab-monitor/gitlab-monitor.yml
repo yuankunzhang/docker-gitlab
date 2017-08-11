@@ -11,12 +11,12 @@ probes:
         - probe_db
       opts:
         connection_string: dbname={{DB_NAME}} user={{DB_USER}} host={{DB_HOST}} password={{DB_PASS}} port={{DB_PORT}}
-  git:
-    methods:
-      - probe_pull
-      - probe_push
-    opts:
-      source: {{GITLAB_REPOS_DIR}}
+#  git:
+#    methods:
+#      - probe_pull
+#      - probe_push
+#    opts:
+#      source: {{GITLAB_REPOS_DIR}}
   process:
     methods:
       - probe_memory
