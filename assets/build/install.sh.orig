@@ -4,9 +4,14 @@ set -e
 GITLAB_CLONE_URL=https://gitlab.com/gitlab-org/gitlab-ce.git
 GITLAB_SHELL_URL=https://gitlab.com/gitlab-org/gitlab-shell/repository/archive.tar.gz
 GITLAB_WORKHORSE_URL=https://gitlab.com/gitlab-org/gitlab-workhorse.git
+<<<<<<< HEAD
+GITLAB_PAGES_URL=https://gitlab.com/gitlab-org/gitlab-pages/repository/archive.tar.gz
+GITLAB_GITALY_URL=https://gitlab.com/gitlab-org/gitaly/repository/archive.tar.gz
+GITLAB_MONITOR_URL=https://gitlab.com/gitlab-org/gitlab-monitor/repository/archive.tar.gz
+=======
 GITLAB_PAGES_URL=https://gitlab.com/gitlab-org/gitlab-pages.git
 GITLAB_GITALY_URL=https://gitlab.com/gitlab-org/gitaly.git
-GITLAB_MONITOR_URL=https://gitlab.com/gitlab-org/gitlab-monitor/repository/archive.tar.gz
+>>>>>>> 36f6a049663a355ff8f84cd06ca079cfb6ea8a8b
 
 GEM_CACHE_DIR="${GITLAB_BUILD_DIR}/cache"
 
@@ -100,7 +105,7 @@ echo "Cloning gitlab-workhorse v.${GITLAB_WORKHORSE_VERSION}..."
 exec_as_git git clone -q -b v${GITLAB_WORKHORSE_VERSION} --depth 1 ${GITLAB_WORKHORSE_URL} ${GITLAB_WORKHORSE_INSTALL_DIR}
 chown -R ${GITLAB_USER}: ${GITLAB_WORKHORSE_INSTALL_DIR}
 
-# download gitlab-monitor
+# download gitlab-workhose
 echo "Downloading gitlab-monitor v.${GITLAB_MONITOR_VERSION}..."
 mkdir -p ${GITLAB_MONITOR_INSTALL_DIR}
 wget -cq ${GITLAB_MONITOR_URL}?ref=v${GITLAB_MONITOR_VERSION} -O ${GITLAB_BUILD_DIR}/gitlab-monitor-${GITLAB_MONITOR_VERSION}.tar.gz

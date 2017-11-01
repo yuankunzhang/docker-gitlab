@@ -4,11 +4,18 @@ MAINTAINER sameer@damagehead.com
 ENV GITLAB_VERSION=10.1.1 \
     RUBY_VERSION=2.3 \
     GOLANG_VERSION=1.8.3 \
+<<<<<<< HEAD
+    GITLAB_SHELL_VERSION=5.9.0 \
+    GITLAB_WORKHORSE_VERSION=3.0.0 \
+    GITLAB_PAGES_VERSION=0.5.1 \
+    GITALY_SERVER_VERSION=0.38.0 \
+    GITLAB_MONITOR_VERSION=1.1.0 \
+=======
     GITLAB_SHELL_VERSION=5.9.3 \
     GITLAB_WORKHORSE_VERSION=3.2.0 \
     GITLAB_PAGES_VERSION=0.6.0 \
     GITALY_SERVER_VERSION=0.43.1 \
-    GITLAB_MONITOR_VERSION=1.1.0 \
+>>>>>>> 36f6a049663a355ff8f84cd06ca079cfb6ea8a8b
     GITLAB_USER="git" \
     GITLAB_HOME="/home/git" \
     GITLAB_LOG_DIR="/var/log/gitlab" \
@@ -33,6 +40,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E1DD270288B4E60
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8B3981E7A6852F782CC4951600A6F0A3C300EE8C \
  && echo "deb http://ppa.launchpad.net/nginx/stable/ubuntu trusty main" >> /etc/apt/sources.list \
  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+&& apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 80F70E11F0F0D5F10CB20E62F5DA5F09C3173AA6 \
  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
  && wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
  && echo 'deb https://deb.nodesource.com/node_8.x trusty main' > /etc/apt/sources.list.d/nodesource.list \
