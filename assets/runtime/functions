@@ -820,6 +820,18 @@ gitlab_configure_backups_aws() {
     exec_as_git sed -i "/#start-aws/d" ${GITLAB_CONFIG}
     exec_as_git sed -i "/#end-aws/d" ${GITLAB_CONFIG}
 
+    if [[ -z ${AWS_BACKUP_MULTIPART_CHUNK_SIZE} ]]; then
+      exec_as_git sed -i "/#start-multipart/,/#end-multipart/d" ${GITLAB_CONFIG}
+    fi
+
+    if [[ -z ${AWS_BACKUP_MULTIPART_CHUNK_SIZE} ]]; then
+      exec_as_git sed -i "/#start-multipart-aws/,/#end-multipart-aws/d" ${GITLAB_CONFIG}
+    fi
+
+    if [[ ${AWS_BACKUP_ENCRYPTION} != true ]]; then
+      exec_as_git sed -i "/#start-encryption-aws/,/#end-encryption-aws/d" ${GITLAB_CONFIG}
+    fi
+
     if [[ -z ${AWS_BACKUP_REGION} && -z ${AWS_BACKUP_ENDPOINT} ]]; then
       echo "\nMissing AWS region or endpoint. Aborting...\n"
       return 1
@@ -841,7 +853,8 @@ gitlab_configure_backups_aws() {
       AWS_BACKUP_ACCESS_KEY_ID \
       AWS_BACKUP_SECRET_ACCESS_KEY \
       AWS_BACKUP_BUCKET \
-      AWS_BACKUP_MULTIPART_CHUNK_SIZE
+      AWS_BACKUP_MULTIPART_CHUNK_SIZE \
+      AWS_BACKUP_STORAGE_CLASS
 }
 
 gitlab_configure_backup_gcs() {
@@ -1456,24 +1469,18 @@ configure_gitlab() {
     GITLAB_SHELL_INSTALL_DIR \
     GITLAB_DATA_DIR \
     GITLAB_REPOS_DIR \
-    GITLAB_REPOSITORIES_STORAGES_DEFAULT_FAILURE_COUNT_THRESHOLD \
-    GITLAB_REPOSITORIES_STORAGES_DEFAULT_FAILURE_WAIT_TIME \
-    GITLAB_REPOSITORIES_STORAGES_DEFAULT_FAILURE_RESET_TIME \
-    GITLAB_REPOSITORIES_STORAGES_DEFAULT_STORAGE_TIMEOUT \
     GITLAB_DOWNLOADS_DIR \
     GITLAB_SHARED_DIR \
     GITLAB_HOST \
     GITLAB_PORT \
     GITLAB_RELATIVE_URL_ROOT \
     GITLAB_HTTPS \
-    GITLAB_MAX_OBJECT_SIZE \
     GITLAB_SSH_HOST \
     GITLAB_SSH_PORT \
     GITLAB_SIGNUP_ENABLED \
     GITLAB_PROJECTS_LIMIT \
     GITLAB_USERNAME_CHANGE \
-    GITLAB_CREATE_GROUP \
-    GITLAB_TIMEOUT
+    GITLAB_CREATE_GROUP 
 
   gitlab_configure_database
   gitlab_configure_redis
