@@ -3,6 +3,26 @@
 This file only reflects the changes that are made in this image. Please refer to the upstream GitLab [CHANGELOG](
 https://gitlab.com/gitlab-org/gitlab-ce/blob/master/CHANGELOG.md) for the list of changes in GitLab.
 
+**10.4.2-1**
+- FIXED SSH Host Key generation through droping the support for rsa1
+
+**10.4.2**
+- gitlab: upgrade CE to v10.4.2
+
+**10.4.1**
+- gitlab: upgrade CE to v10.4.1
+
+**10.4.0**
+- gitlab: upgrade CE to v10.4.0
+- docker: upgrade to ubuntu xenial as baseimage
+- golang: update to 1.9.3
+
+**10.3.6**
+- gitlab: upgrade CE to v10.3.6
+
+**10.3.5**
+- gitlab: upgrade CE to v10.3.5
+
 **10.3.4**
 - gitlab: upgrade CE to v10.3.4
 
