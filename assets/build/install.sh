@@ -409,3 +409,8 @@ EOF
 # purge build dependencies and cleanup apt
 DEBIAN_FRONTEND=noninteractive apt-get purge -y --auto-remove ${BUILD_DEPENDENCIES}
 rm -rf /var/lib/apt/lists/*
+
+# remove unnecessary folders to shrink image size
+# https://github.com/sameersbn/docker-gitlab/issues/1502
+rm -rf ${GITLAB_HOME}/.cache
+rm -rf ${GITLAB_INSTALL_DIR}/node_modules
