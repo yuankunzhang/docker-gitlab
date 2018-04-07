@@ -3,8 +3,24 @@
 This file only reflects the changes that are made in this image. Please refer to the upstream GitLab [CHANGELOG](
 https://gitlab.com/gitlab-org/gitlab-ce/blob/master/CHANGELOG.md) for the list of changes in GitLab.
 
+**10.6.3**
+- gitlab: upgrade CE to v10.6.3
+
+**10.6.2**
+- gitlab: upgrade CE to v10.6.2
+- golang: update to 1.9.5
+
+**10.6.1**
+- gitlab: upgrade CE to v10.6.1
+
+**10.6.0**
+- gitlab: upgrade CE to v10.6.0
+
 **10.5.6**
-- gitlab: upgrade CE to v10.5.6
+- gitlab: security upgrade CE to v10.5.6
+
+**10.5.5**
+- gitlab: upgrade CE to v10.5.5
 
 **10.5.4**
 - gitlab: upgrade CE to v10.5.4
