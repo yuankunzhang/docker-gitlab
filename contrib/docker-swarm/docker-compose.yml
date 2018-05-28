@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 
 services:
   redis:
@@ -22,16 +22,19 @@ services:
 
   gitlab:
     restart: always
-    image: sameersbn/gitlab:10.8.1
+    image: sameersbn/gitlab:10.7.2
     depends_on:
     - redis
     - postgresql
     ports:
     - "10080:80"
     - "10022:22"
-    - "9168:9168"
     volumes:
     - /srv/docker/gitlab/gitlab:/home/git/data:Z
+    configs:
+      - gitlab-configs
+    secrets:
+      - gitlab-secrets
     environment:
     - DEBUG=false
 
@@ -149,18 +152,11 @@ services:
     - OAUTH_AZURE_API_KEY=
     - OAUTH_AZURE_API_SECRET=
     - OAUTH_AZURE_TENANT_ID=
-  prometheus-server:
-    image: prom/prometheus
-    ports:
-      - 9090:9090
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
-  grafana-ui:
-    image: grafana/grafana
-    ports:
-      - 3000:3000
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=
-    links:
-      - prometheus-server:prometheus
+configs:
+  gitlab-configs:
+    file: ./gitlab.configs
+
+secrets:
+  gitlab-secrets:
+    file: ./gitlab.secrets
