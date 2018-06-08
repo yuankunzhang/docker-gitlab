@@ -3,6 +3,17 @@
 This file only reflects the changes that are made in this image. Please refer to the upstream GitLab [CHANGELOG](
 https://gitlab.com/gitlab-org/gitlab-ce/blob/master/CHANGELOG.md) for the list of changes in GitLab.
 
+**10.8.3-1**
+- Fix boot loops that were introduced during [#1621](https://github.com/sameersbn/docker-gitlab/pull/1621) and will be fixed with [#1628](https://github.com/sameersbn/docker-gitlab/pull/1628)
+
+
+**10.8.3**
+- gitlab: upgrade CE to v10.8.3
+- Fix potential boot problems on clean setups [#1621](https://github.com/sameersbn/docker-gitlab/pull/1621)
+
+**10.8.2**
+- gitlab: upgrade CE to v10.8.2
+
 **10.8.1**
 - gitlab: upgrade CE to v10.8.1
 
