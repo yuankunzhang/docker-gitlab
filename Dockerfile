@@ -1,7 +1,7 @@
 FROM sameersbn/ubuntu:16.04.20180124
 LABEL maintainer="sameer@damagehead.com"
 
-ENV GITLAB_VERSION=11.0.1 \
+ENV GITLAB_VERSION=11.0.2 \
     RUBY_VERSION=2.4 \
     GOLANG_VERSION=1.10.3 \
     GITLAB_SHELL_VERSION=7.1.4 \
